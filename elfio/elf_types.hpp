@@ -27,23 +27,25 @@ THE SOFTWARE.
 namespace ELFIO {
 #endif
 
-using Elf_Half   = uint16_t;
-using Elf_Word   = uint32_t;
-using Elf_Sword  = int32_t;
-using Elf_Xword  = uint64_t;
-using Elf_Sxword = int64_t;
+#include <elfio/elf_integer.hpp>
 
-using Elf32_Addr = uint32_t;
-using Elf32_Off  = uint32_t;
-using Elf64_Addr = uint64_t;
-using Elf64_Off  = uint64_t;
+using Elf_Half   = elf_integer<uint16_t>;
+using Elf_Word   = elf_integer<uint32_t>;
+using Elf_Sword  = elf_integer<int32_t>;
+using Elf_Xword  = elf_integer<uint64_t>;
+using Elf_Sxword = elf_integer<int64_t>;
 
-using Elf32_Half  = Elf_Half;
-using Elf64_Half  = Elf_Half;
-using Elf32_Word  = Elf_Word;
-using Elf64_Word  = Elf_Word;
-using Elf32_Sword = Elf_Sword;
-using Elf64_Sword = Elf_Sword;
+using Elf32_Addr = elf_integer<uint32_t>;
+using Elf32_Off  = elf_integer<uint32_t>;
+using Elf64_Addr = elf_integer<uint64_t>;
+using Elf64_Off  = elf_integer<uint64_t>;
+
+using Elf32_Half  = elf_integer<Elf_Half>;
+using Elf64_Half  = elf_integer<Elf_Half>;
+using Elf32_Word  = elf_integer<Elf_Word>;
+using Elf64_Word  = elf_integer<Elf_Word>;
+using Elf32_Sword = elf_integer<Elf_Sword>;
+using Elf64_Sword = elf_integer<Elf_Sword>;
 
 ///////////////////////
 // ELF Header Constants

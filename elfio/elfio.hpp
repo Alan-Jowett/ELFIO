@@ -268,29 +268,29 @@ class elfio
     //------------------------------------------------------------------------------
     Elf_Xword get_default_entry_size( Elf_Word section_type ) const
     {
-        switch ( section_type ) {
-        case SHT_RELA:
+        switch ( section_type.value ) {
+        case SHT_RELA.value:
             if ( header->get_class() == ELFCLASS64 ) {
                 return sizeof( Elf64_Rela );
             }
             else {
                 return sizeof( Elf32_Rela );
             }
-        case SHT_REL:
+        case SHT_REL.value:
             if ( header->get_class() == ELFCLASS64 ) {
                 return sizeof( Elf64_Rel );
             }
             else {
                 return sizeof( Elf32_Rel );
             }
-        case SHT_SYMTAB:
+        case SHT_SYMTAB.value:
             if ( header->get_class() == ELFCLASS64 ) {
                 return sizeof( Elf64_Sym );
             }
             else {
                 return sizeof( Elf32_Sym );
             }
-        case SHT_DYNAMIC:
+        case SHT_DYNAMIC.value:
             if ( header->get_class() == ELFCLASS64 ) {
                 return sizeof( Elf64_Dyn );
             }
@@ -313,8 +313,8 @@ class elfio
         std::string errors;
         // Check for overlapping sections in the file
         // This is explicitly forbidden by ELF specification
-        for ( int i = 0; i < sections.size(); ++i) {
-            for ( int j = i+1; j < sections.size(); ++j ) {
+        for ( Elf_Half i = 0; i < sections.size(); ++i) {
+            for ( Elf_Half j = i+1; j < sections.size(); ++j ) {
                 const section* a = sections[i];
                 const section* b = sections[j];
                 if (   ( ( a->get_type() & SHT_NOBITS) == 0 )
@@ -946,12 +946,12 @@ class elfio
         }
 
         //------------------------------------------------------------------------------
-        section* operator[]( unsigned int index ) const
+        section* operator[]( Elf_Word index ) const
         {
             section* sec = nullptr;
 
             if ( index < parent->sections_.size() ) {
-                sec = parent->sections_[index].get();
+                sec = parent->sections_[index.value].get();
             }
 
             return sec;
